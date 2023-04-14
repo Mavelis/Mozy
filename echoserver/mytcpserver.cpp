@@ -1,4 +1,5 @@
 #include "mytcpserver.h"
+#include "Pars.h"
 #include <QDebug>
 #include <QCoreApplication>
 
@@ -6,9 +7,9 @@ QList<QTcpSocket*> clients;
 
 MyTcpServer::~MyTcpServer()
 {
-    int i = 0;
-    while(i < mTcpSocket.length())
-        mTcpSocket[i]->close();
+//    int i = 0;
+//    while(i < mTcpSocket.length())
+//        mTcpSocket[i]->close();
     mTcpServer->close();
     server_status=0;
 }
@@ -40,20 +41,14 @@ void MyTcpServer::slotNewConnection(){
 }
 
 void MyTcpServer::slotServerRead(){
-    QByteArray array;
     QTcpSocket* cTcpSocket = (QTcpSocket*)sender();
-    while(cTcpSocket->bytesAvailable()>0)
-    {
-        array.append(cTcpSocket->readAll());
-    }
-    if(array.right(1) == "\n")
-    {
-        cTcpSocket->write(array);
-    }
-    if(server_status==0){ //если сервер выключен
-            cTcpSocket = mTcpServer->nextPendingConnection();  //тому сокету, который есть у объекта присваем
-            cTcpSocket->write("Server sleep.");
+        QString request;
+        while(cTcpSocket->bytesAvailable()>0) {
+            request.append(cTcpSocket->readAll());
         }
+        QByteArray response = parse(request)+ "\r\n";
+        cTcpSocket->write(response);
+
 }
 
 void MyTcpServer::slotClientDisconnected(){
