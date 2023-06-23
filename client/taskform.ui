@@ -84,6 +84,9 @@
         </attribute>
        </widget>
       </item>
+      <item>
+       <widget class="QLineEdit" name="userAnswer"/>
+      </item>
      </layout>
     </item>
     <item>

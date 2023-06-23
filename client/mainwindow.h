@@ -48,7 +48,7 @@ private slots:
      * \brief Функция, которая создаёт окно TaskForm
      * \param[in] task Структура задания
      */
-    void openTask(QVariantMap task);
+    void openTask(QVariantMap task, bool simpletask);
 
 private:
     Ui::MainWindow *ui;

@@ -20,10 +20,14 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::openTask(QVariantMap task) {
+void MainWindow::openTask(QVariantMap task, bool simpletask) {
     int taskId = task["id"].toInt();
     QString taskText = task["text"].toString();
-    tWindow->initTask(taskText, taskId);
+    if (tWindow!=nullptr){
+        delete tWindow;
+    }
+    tWindow = new TaskForm();
+    tWindow->initTask(taskText, taskId, simpletask);
     tWindow->show();
 }
 
@@ -31,7 +35,7 @@ void MainWindow::openTask(QVariantMap task) {
 void MainWindow::on_task1_clicked()
 {
     QVariantMap task = getTask(1);
-    openTask(task);
+    openTask(task, true);
 }
 
 
@@ -39,26 +43,26 @@ void MainWindow::on_task1_clicked()
 void MainWindow::on_task2_clicked()
 {
     QVariantMap task = getTask(2);
-    openTask(task);
+    openTask(task, true);
 }
 
 
 void MainWindow::on_task3_clicked()
 {
     QVariantMap task = getTask(3);
-    openTask(task);
+    openTask(task, true);
 }
 
 void MainWindow::on_task4_clicked()
 {
     QVariantMap task = getTask(4);
-    openTask(task);
+    openTask(task, false);
 }
 
 void MainWindow::on_task5_clicked()
 {
     QVariantMap task = getTask(5);
-    openTask(task);
+    openTask(task, false);
 }
 
 

@@ -9,9 +9,19 @@ TaskForm::TaskForm(QWidget *parent) :
     ui->taskText->setWordWrap(true);
 }
 
-void TaskForm::initTask(QString taskText, int taskId) {
+void TaskForm::initTask(QString taskText, int taskId, bool simpletask) {
     this->taskId = taskId;
     this->ui->taskText->setText(taskText);
+    if (not simpletask) {
+        ui->userAnswer->setVisible(true);
+        ui->correct->setVisible(false);
+        ui->uncorrect->setVisible(false);
+    }
+    else {
+        ui->userAnswer->setVisible(false);
+        ui->correct->setVisible(true);
+        ui->uncorrect->setVisible(true);
+    }
 }
 
 
@@ -24,14 +34,20 @@ TaskForm::~TaskForm()
 void TaskForm::on_TryButton_clicked()
 {
     QString userAnswer = "";
-    int selectedId = this->ui->buttonGroup->checkedId();
-    qDebug() << selectedId;
-
-    if (selectedId == -2) {
-        userAnswer = "1";
-    } else if (selectedId == -3) {
-        userAnswer = "0";
+    if (ui->userAnswer->isVisible()) {
+        userAnswer=ui->userAnswer->text();
     }
+    else {
+        int selectedId = this->ui->buttonGroup->checkedId();
+        qDebug() << selectedId;
+
+        if (selectedId == -2) {
+            userAnswer = "1";
+        } else if (selectedId == -3) {
+            userAnswer = "0";
+        }
+    }
+
 
     bool status = checkTask(this->taskId, userAnswer);
     if (status) this->ui->statusLabel->setText("Правильный ответ");

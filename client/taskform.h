@@ -20,7 +20,7 @@ public:
      * \param[in] taskText Текст задания
      * \param[in] taskId Серверный ID задания
      */
-    void initTask(QString taskText, int taskId);
+    void initTask(QString taskText, int taskId, bool simpletask);
 
 private slots:
     /*!
