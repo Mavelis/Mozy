@@ -16,6 +16,8 @@ private slots:
     void test_case_task1();
     void test_case_task2();
     void test_case_task3();
+    void test_case_task4();
+    void test_case_task5();
 };
 
 serverfunction::serverfunction() {
@@ -27,20 +29,30 @@ serverfunction::~serverfunction() {
 }
 
 void serverfunction::test_case_task1() {
-    std::vector<bool> input =  {0, 0, 1, 1, 0};
+    std::vector<bool> input =  {0, 0, 1, 1};
     QVERIFY(isLinear(input) == false);
 
 }
 
 void serverfunction::test_case_task2() {
-    std::vector<bool> input =  {1, 1, 1, 1, 0, 0, 1, 0, 1, 0};
+    std::vector<bool> input =  {1, 1, 1, 1, 0, 0, 1, 0};
     QVERIFY(isMonotone(input) == false);
 
 }
 
 void serverfunction::test_case_task3() {
-    std::vector<bool> input =  {0, 1, 0, 0, 1};
-    QVERIFY(isSelfDual(input) == true);
+    std::vector<bool> input =  {0, 1, 0, 0, 1, 1, 1, 1};
+    QVERIFY(isSelfDual(input) == false);
+}
+
+void serverfunction::test_case_task4() {
+    QString input =  "11111q11";
+    QVERIFY(TuringMachineA(input) == "11111q01");
+}
+
+void serverfunction::test_case_task5() {
+    QString input =  "111q11";
+    QVERIFY(TuringMachineB(input) == "111q0E");
 }
 
 QTEST_APPLESS_MAIN(serverfunction)
